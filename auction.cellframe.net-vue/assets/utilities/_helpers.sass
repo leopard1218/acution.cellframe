@@ -1,0 +1,235 @@
+=defaultinput
+  height: $control-height
+  line-height: $control-line-height
+  border: $control-border-width solid $border-color
+  border-radius: $input-radius
+
+=inputpadding
+  padding-top: 0em
+  padding-bottom: 0em
+  @include sidePaddings($control-padding-horizontal)
+
+=no-padding
+  padding: 0
+
+.no-padding
+  +no-padding
+
+=no-margin
+  margin: 0
+
+=transparent
+  background: transparent
+
+=no-outline
+  outline: 0
+
+=no-border
+  border: 0
+
+=no-radius
+  border-radius: 0
+
+=no-shadow
+  box-shadow: none
+
+=unclickable
+  user-select: none !important
+  cursor: default !important
+
+=flex-center
+  @include flexBoxCenter
+
+=flex-wrap
+  flex-wrap: wrap
+
+=one-liner
+  white-space: nowrap
+
+=cursorpointer
+  cursor: pointer
+
+=addshadow
+  box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.12)
+
+=textellipsis
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+=is-full-width
+  @include size(100%, auto)
+
+=is-nowrap
+  white-space: nowrap
+
+=hide
+  display: none
+  visibility: hidden
+
+=justify-center
+  justify-content: center
+
+=icon-text-center
+  @include flexbox(row, center)
+  svg
+    margin-right: $control-padding-horizontal / 2
+
+=devforceopen
+  display: block !important
+
+=no-scroll-bar
+  @include no-scroll-bar
+
+=align-right
+  text-align: right
+
+=is-relative
+  position: relative
+
+=is-fixed
+  position: fixed
+
+=is-absolute
+  position: absolute
+
+=is-block
+  display: block
+
+=is-flex
+  display: flex
+
+=show
+  display: block !important
+  visibility: visible
+
+=flex-wrap
+  flex-flow: wrap
+
+=subtext
+  color: $subtext-color
+  font-size: $subtext-size
+  font-weight: $subtext-weight
+
+=block-design
+  background: $white
+  box-shadow: $shadow
+  border-radius: $radius-large
+  padding: 0em $margin
+
+=modal-background
+  bottom: 0
+  left: 0
+  position: absolute
+  right: 0
+  top: 0
+  position: fixed
+  background-color: $modal-background-background-color
+  cursor: pointer
+  content: ""
+  z-index: z("default")
+
+=dropdown
+  background-color: $white
+  box-shadow: $dropdown-box-shadow
+  border-radius: $radius
+  +is-absolute
+  z-index: z(dropdown)
+  +unclickable
+  +mobile
+    right: 0
+
+=color--btc
+  color: $color--btc
+
+=color--eth
+  color: $color--eth
+
+=color--polka
+  color: $color--polka
+
+=glow-bg
+  background: linear-gradient(-15deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)
+  background-size: 400% 400%
+  -webkit-animation: gradient 10s ease infinite
+  animation: gradient 10s ease infinite
+  position: relative
+  overflow: hidden
+
+=border
+  border-width: $border-size
+  border-style: solid
+  border-color: $border-color
+
+=border-top
+  border-top-width: $border-size
+  border-top-style: solid
+  border-top-color: $border-color
+
+=border-bottom
+  border-bottom-width: $border-size
+  border-bottom-style: solid
+  border-bottom-color: $border-color
+
+=hidden
+  overflow: hidden
+  -webkit-backface-visibility: hidden
+  -moz-backface-visibility: hidden
+  -webkit-transform: translate3d(0, 0, 0)
+  -moz-transform: translate3d(0, 0, 0)
+
+.text-uppercase
+  text-transform: uppercase
+
+=box-design
+  background: $white
+  border: $border
+  border-radius: $radius
+  box-shadow: $shadow
+
+// BG COLORS
+$bg-orange: linear-gradient(to right top, #ffea51, #ffcb46, #ffb65f)
+$bg-purple: linear-gradient(to right top, #a34ffe, #9448fd, #8440fc, #713afc, #5a34fb)
+$bg-maroon: #ea004f
+$bg-dark-maroon: #ce1c58
+$bg-cell-gray: #47425D
+$bg-cell-blue: #1B0E5B
+
+.bg-orange
+  background: $bg-orange
+  &:hover
+    box-shadow: 4px 4px 0px #a34ffe
+
+.bg-maroon
+  border-radius: 3px
+  background: $bg-maroon
+  &:hover
+    background: $bg-dark-maroon
+
+.bg-maroon-blue
+  border-radius: 3px
+  background: $bg-maroon
+  &:hover
+    background: $bg-cell-blue
+
+.button.bg-orange
+  color: #4c3b17 !important
+
+.bg-purple
+  background: $bg-purple
+  &:hover
+    box-shadow: 4px 4px 0px #ffea51
+
+.bg-cell-gray
+  background: $bg-cell-gray
+  color: #ffffff
+
+.text-highlight
+  color: #f6a429
+
+.center-button
+  @include flexbox(row, center, center)
+  margin-top: $margin * 3
+
+  .button
+    font-size: 26px

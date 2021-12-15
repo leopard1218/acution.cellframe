@@ -1,0 +1,21 @@
+*
+  @include box-sizing(border-box)
+
+html,
+body,
+#__nuxt,
+#__layout,
+.page
+  @include size(100%)
+  @media screen and (max-width: 768px)
+    @include size(auto)
+  color: $text-color
+
+html
+  background: #070024
+  background: radial-gradient(circle, #65113f -115%, #070024 100%)
+
+.aos-init
+  @media screen and (max-width: 768px)
+    transform: translateZ(0) !important
+    transition-delay: 0 !important

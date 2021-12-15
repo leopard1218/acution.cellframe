@@ -1,0 +1,9 @@
+// z-index settings
+
+$z-index: ( modal: 40, header: 35, sidebar: 30, dropdown: 10, default : 1 )
+
+@function z($key)
+  @return map-get($z-index, $key)
+
+@mixin z($key)
+  z-index: z($key)
