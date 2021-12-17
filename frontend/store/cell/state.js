@@ -37,7 +37,7 @@ export default () => ({
   activeApplicants: [],
   passedAuctions: [],
   winners: [],
-  
+
   myActiveProject: {
     project_name: '',
     project_type: '',
@@ -138,6 +138,35 @@ export default () => ({
           text: "Uniswap",
         },
       },
+      {
+        name: "Ethereum rinkeby",
+        short_name: "eth",
+        chain: "ETH",
+        network: "rinkeby",
+        chain_id: 4,
+        network_id: 4,
+        explorer_url: "https://rinkeby.etherscan.io",
+        rpc_url: "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+        blocks_per_day: 6450,
+        native_currency: {
+          symbol: "ETH",
+          name: "Ethereum",
+          decimals: 18,
+          contractAddress: "",
+          balance: "",
+        },
+        contracts: {
+          primary: "0xd8CB0cf6bA6FEf670ad3958D91a05b2069aC9C8b",
+          cellslot: "0x06af6474e24986E6B9e32F465BF67F6c3Cd10660",
+          celltoken: "0x26c8AFBBFE1EBaca03C2bB082E69D0476Bffe099",
+        },
+        buy: {
+          link:
+            "https://app.uniswap.org/#/swap?outputCurrency=0x025c9f1146d4d94f8f369b9d98104300a3c8ca23",
+          img: "img/uniswap.png",
+          text: "Uniswap",
+        }
+      }
     ]
   }
 })

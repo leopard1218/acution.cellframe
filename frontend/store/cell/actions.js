@@ -10,7 +10,8 @@ import Web3Modal from "../../factories/web3/Web3Modal";
 export default {
   async initWithoutWallet({commit, dispatch, getters, state}) {
     const provider = new Web3.providers.HttpProvider(
-      'https://mainnet.infura.io/v3/012cc46832a547b1a4f4de071596f544'
+      // 'https://mainnet.infura.io/v3/012cc46832a547b1a4f4de071596f544'
+      'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
     )
     commit("SET_WEB3_PROVIDER", provider);
     const web3 = new Web3(provider)

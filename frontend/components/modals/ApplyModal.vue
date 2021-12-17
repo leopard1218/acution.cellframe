@@ -116,7 +116,7 @@ export default {
         return;
       }
       const pledge = new BigNumber('1000').times(new BigNumber('10').pow(this.celltoken.decimals))
-      if (pledge.gt(this.celltoken.userBalance)) {
+      if (pledge.lt(this.celltoken.userBalance)) {
         this.$buefy.toast.open({
           duration: 2000,
           message: 'Insufficient Funds. User must have at least 1000$CELL.',

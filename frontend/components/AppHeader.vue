@@ -79,7 +79,8 @@ export default {
         onAction: async () => {
           await this.web3.provider.request({
             method: 'wallet_switchEthereumChain',
-            params: [{ chainId: "0x1" }]
+            // params: [{ chainId: "0x1" }]
+            params: [{ chainId: "0x4" }]
           })
         }
       })
