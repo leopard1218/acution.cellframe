@@ -11,7 +11,7 @@
  Target Server Version : 100413
  File Encoding         : 65001
 
- Date: 22/12/2021 00:27:52
+ Date: 22/12/2021 00:57:15
 */
 
 SET NAMES utf8mb4;
@@ -67,7 +67,7 @@ CREATE TABLE `block`  (
 -- ----------------------------
 -- Records of block
 -- ----------------------------
-INSERT INTO `block` VALUES (1, 0);
+INSERT INTO `block` VALUES (1, 9853819);
 INSERT INTO `block` VALUES (2, 0);
 INSERT INTO `block` VALUES (3, 0);
 
@@ -76,7 +76,7 @@ INSERT INTO `block` VALUES (3, 0);
 -- ----------------------------
 DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `auctionID` int(11) NULL DEFAULT NULL,
   `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `projectName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -92,11 +92,12 @@ CREATE TABLE `project`  (
   `referenceUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `created_at` timestamp(0) NULL DEFAULT current_timestamp(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of project
 -- ----------------------------
+INSERT INTO `project` VALUES (1, 3, '0xA58ee9834F6D52cF936e538908449E60D9e4A6Bf', 'Flask', 'True', 1, 8, NULL, 0, 'CELL', '0x421E4fDD21AA4100C43CF29e0b30DBf3Ea1A90fC', 0, 4, 'http://aaaa', '2021-12-22 00:55:24');
 
 -- ----------------------------
 -- Table structure for token

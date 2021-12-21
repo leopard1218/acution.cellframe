@@ -2,10 +2,9 @@
 pragma solidity 0.8.9;
 
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
-
-contract TotalAuction is VRFConsumerBase {
+import "@openzeppelin/contracts/access/Ownable.sol";
+contract TotalAuction is Ownable, VRFConsumerBase {
     uint256[] public participants;
-
     uint256 minimalCost;
     uint8 maxRange;
 
@@ -19,7 +18,7 @@ contract TotalAuction is VRFConsumerBase {
     bytes32 internal keyHash;
     uint256 internal fee;
 
-    struct bid {
+    struct BID {
         uint256 auctionID;
         uint256 projectID;
         address owner;
@@ -35,8 +34,8 @@ contract TotalAuction is VRFConsumerBase {
         uint256 amount;
     }
 
-    TokenFunds[] public lockingFunds;
-    TokenFunds[] public claimFunds;
+    TokenFund[] public lockingFunds;
+    TokenFund[] public claimFunds;
 
     mapping(uint256 => uint256) scores;
     uint256 maxScore;
@@ -45,7 +44,7 @@ contract TotalAuction is VRFConsumerBase {
     mapping(address => mapping(address => uint256)) public lockingFundsIndex;
     mapping(address => mapping(address => uint256)) public claimFundsIndex;
 
-    bid[] public bids;
+    BID[] public bids;
     uint256 public totalBids;
 
     /**
@@ -65,32 +64,24 @@ contract TotalAuction is VRFConsumerBase {
      */
     constructor()
         VRFConsumerBase(
-            0x8C7382F9D8f56b33781fE506E897a4F1e2d17255, // VRF Coordinator
-            0x326C977E6efc84E512bB9C30f76E30c160eD06FB // LINK Token
+            0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B, // VRF Coordinator
+            0x01BE23585060835E02B77ef475b0Cc51aA1e0709 // LINK Token
         )
     {
-        keyHash = 0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4;
-        fee = 0.0001 * 10**18; // 1 LINK (Varies by network)
+        keyHash = 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311;
+        fee = 0.1 * 10**18; // 1 LINK (Varies by network)
+
     }
 
-    /**
-     * @notice starts candle auction for particular contract. only owner can do this.
-     * @param startTime_ This is the time when the auction starts. Contributers can vote their funds from this time.
-     * @param endPhaseStartTime_ From this time, the auction can be finished. Nobody knows. It will be determined randomly after auction has finished.
-     */
     function startAuction() external onlyOwner {
         delete bids;
         totalBids = 0;
         startblock = block.number;
         midblock = startblock + 25 * 60 * 24 * 2;
         auctionState = 1;
+                // auctionEndPhaseStartTime = block.number;
     }
 
-    /**
-    * @notice auction has finished and it doesn't accept votes anymore.
-        It will determine the auction close time retroactively by choosing random moment during the ending phase duration.
-    * @param endTime_ Time that the auction was ended. The real finished time will be determined randomly between endPhaseTime and endTime.
-   */
     function finishAuction() external onlyOwner {
         endblock = block.number;
         auctionState = 2;
@@ -107,15 +98,15 @@ contract TotalAuction is VRFConsumerBase {
         uint256 amount
     ) external onlyOwner {
         bids.push(
-            new BID(
-                auctionID,
-                projectID,
-                owner,
-                timestamp,
-                chainID,
-                tokenAddress,
-                amount
-            )
+            BID({
+                auctionID: auctionID,
+                projectID: projectID,
+                owner: owner,
+                timestamp: timestamp,
+                chainID: chainID,
+                tokenAddress: tokenAddress,
+                amount: amount
+            })
         );
     }
 
@@ -133,7 +124,7 @@ contract TotalAuction is VRFConsumerBase {
     ) internal override {
         finalblock =
             midblock +
-            (randomness % (auctionEndTime - auctionEndPhaseStartTime));
+            (randomness % (endblock - startblock));
         finalizeAuction();
     }
 
@@ -146,7 +137,7 @@ contract TotalAuction is VRFConsumerBase {
         for (i = 0; i < totalBids; i++) {
             BID storage bid = bids[i];
             if (bid.timestamp > finalblock) break;
-            scores[bid.projectID] += bid.score;
+            scores[bid.projectID] += bid.amount;
             if (scores[bid.projectID] > maxScore) {
                 maxScore = scores[bid.projectID];
                 winnerProjectID = bid.projectID;
@@ -158,7 +149,7 @@ contract TotalAuction is VRFConsumerBase {
             if (
                 bid.timestamp < finalblock && bid.projectID == winnerProjectID
             ) {
-                if (lockingFundsIndex[bid.owner][bid.tokenAddress]) {
+                if (lockingFundsIndex[bid.owner][bid.tokenAddress] > 0) {
                     lockingFunds[
                         lockingFundsIndex[bid.owner][bid.tokenAddress] - 1
                     ].amount += bid.amount;
@@ -168,10 +159,10 @@ contract TotalAuction is VRFConsumerBase {
                         1;
                     lockingFunds[
                         lockingFundsIndex[bid.owner][bid.tokenAddress] - 1
-                    ] = new TokenFund(bid.owner, bid.tokenAddress, bid.amount);
+                    ] = TokenFund({owner: bid.owner , token: bid.tokenAddress, amount: bid.amount});
                 }
             } else {
-                if (claimFundsIndex[bid.owner][bid.tokenAddress]) {
+                if (claimFundsIndex[bid.owner][bid.tokenAddress] > 0) {
                     claimFunds[claimFundsIndex[bid.owner][bid.tokenAddress] - 1]
                         .amount += bid.amount;
                 } else {
@@ -180,7 +171,7 @@ contract TotalAuction is VRFConsumerBase {
                         1;
                     claimFunds[
                         claimFundsIndex[bid.owner][bid.tokenAddress] - 1
-                    ] = new TokenFund(bid.owner, bid.tokenAddress, bid.amount);
+                    ] = TokenFund({owner: bid.owner , token: bid.tokenAddress, amount: bid.amount});
                 }
             }
         }
