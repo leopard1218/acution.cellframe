@@ -25,12 +25,12 @@ contract ApplicationPrimary {
     event Apply(
         uint256 auctionID,
         address indexed participant,
-        string project_name,
+        bytes32 project_name,
         bool project_type,
         uint256 st_range,
         uint256 end_range,
-        string metaURI,
-        string token_name,
+        bytes32 metaURI,
+        bytes32 token_name,
         address sc_address
     );
 
@@ -77,21 +77,21 @@ contract ApplicationPrimary {
         string memory token_name,
         address token_address
     ) external payable {
-        ERC20TokenInterface(CELL).transferFrom(
-            msg.sender,
-            address(this),
-            PLEDGE_AMOUNT
-        );
+        // ERC20TokenInterface(CELL).transferFrom(
+        //     msg.sender,
+        //     address(this),
+        //     PLEDGE_AMOUNT
+        // );
 
         emit Apply(
             auctionID,
             msg.sender,
-            _name,
+            bytes32(bytes(_name)),
             _type,
             st_range,
             end_range,
-            _metaURI,
-            token_name,
+            bytes32(bytes(_metaURI)),
+            bytes32(bytes(token_name)),
             token_address
         );
     }
@@ -121,11 +121,11 @@ contract ApplicationPrimary {
         );
         require(amount > 0, "You should vote at least more than 0");
 
-        ERC20TokenInterface(tokenAddress).transferFrom(
-            msg.sender,
-            address(this),
-            amount
-        );
+        // ERC20TokenInterface(tokenAddress).transferFrom(
+        //     msg.sender,
+        //     address(this),
+        //     amount
+        // );
 
         emit BID(
             projectID,

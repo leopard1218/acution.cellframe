@@ -11,7 +11,7 @@
  Target Server Version : 100413
  File Encoding         : 65001
 
- Date: 22/12/2021 00:27:52
+ Date: 24/12/2021 08:29:14
 */
 
 SET NAMES utf8mb4;
@@ -41,11 +41,14 @@ CREATE TABLE `auction`  (
 DROP TABLE IF EXISTS `bidder`;
 CREATE TABLE `bidder`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_id` int(11) NULL DEFAULT NULL,
-  `bidaddr` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `chain` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `token_id` int(11) NULL DEFAULT NULL,
+  `projectID` int(11) NULL DEFAULT NULL,
+  `bidder` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `chainId` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `timestamp` int(11) NULL DEFAULT NULL,
+  `st_range` int(11) NULL DEFAULT NULL,
+  `end_range` int(11) NULL DEFAULT NULL,
   `amount` int(11) NULL DEFAULT NULL,
+  `tokenAddress` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `created_at` timestamp(0) NOT NULL DEFAULT current_timestamp(0),
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -76,23 +79,24 @@ INSERT INTO `block` VALUES (3, 0);
 -- ----------------------------
 DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `auctionID` int(11) NULL DEFAULT NULL,
   `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `projectName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `crowdloan` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `crowdloan` tinyint(1) NULL DEFAULT NULL,
   `st_range` int(11) NULL DEFAULT NULL,
   `end_range` int(11) NULL DEFAULT NULL,
   `lastScore` int(11) NULL DEFAULT NULL,
   `totalScore` int(11) NULL DEFAULT NULL,
   `tokenName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `tokenAddr` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `isApproved` int(11) NULL DEFAULT NULL,
+  `projectState` int(11) NULL DEFAULT NULL,
   `chainId` int(11) NULL DEFAULT NULL,
+  `lastBidder` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `referenceUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `created_at` timestamp(0) NULL DEFAULT current_timestamp(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of project
@@ -115,6 +119,5 @@ CREATE TABLE `token`  (
 -- ----------------------------
 -- Records of token
 -- ----------------------------
-INSERT INTO `token` VALUES (1, NULL, 'CELL', 1, NULL, '2021-12-17 01:49:46');
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -1,5 +1,55 @@
 [
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "auctionID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "projectID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "chainID",
+				"type": "uint8"
+			},
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "addBid",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "finishAuction",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -8,134 +58,171 @@
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "requestId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "randomness",
+				"type": "uint256"
+			}
+		],
+		"name": "rawFulfillRandomness",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "startAuction",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "auctionState",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "bids",
+		"outputs": [
+			{
 				"internalType": "uint256",
 				"name": "auctionID",
 				"type": "uint256"
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "participant",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "bytes32",
-				"name": "project_name",
-				"type": "bytes32"
-			},
-			{
-				"indexed": false,
-				"internalType": "bool",
-				"name": "project_type",
-				"type": "bool"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "st_range",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "end_range",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "bytes32",
-				"name": "metaURI",
-				"type": "bytes32"
-			},
-			{
-				"indexed": false,
-				"internalType": "bytes32",
-				"name": "token_name",
-				"type": "bytes32"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "sc_address",
-				"type": "address"
-			}
-		],
-		"name": "Apply",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
 				"internalType": "uint256",
 				"name": "projectID",
 				"type": "uint256"
 			},
 			{
-				"indexed": false,
 				"internalType": "address",
-				"name": "bidder",
+				"name": "owner",
 				"type": "address"
 			},
 			{
-				"indexed": false,
 				"internalType": "uint256",
 				"name": "timestamp",
 				"type": "uint256"
 			},
 			{
-				"indexed": false,
+				"internalType": "uint8",
+				"name": "chainID",
+				"type": "uint8"
+			},
+			{
 				"internalType": "address",
 				"name": "tokenAddress",
 				"type": "address"
 			},
 			{
-				"indexed": false,
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint8",
-				"name": "st_range",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint8",
-				"name": "end_range",
-				"type": "uint8"
 			}
 		],
-		"name": "BID",
-		"type": "event"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
 				"internalType": "uint256",
-				"name": "projectID",
+				"name": "",
 				"type": "uint256"
+			}
+		],
+		"name": "claimFunds",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
 			},
 			{
-				"indexed": false,
 				"internalType": "address",
-				"name": "receiver",
+				"name": "token",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "",
 				"type": "address"
 			}
 		],
-		"name": "ClaimFund",
-		"type": "event"
-	},
-	{
-		"inputs": [],
-		"name": "PLEDGE_AMOUNT",
+		"name": "claimFundsIndex",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -150,104 +237,45 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "auctionID",
+				"name": "",
 				"type": "uint256"
-			},
+			}
+		],
+		"name": "lockingFunds",
+		"outputs": [
 			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "_type",
-				"type": "bool"
-			},
-			{
-				"internalType": "uint256",
-				"name": "st_range",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "end_range",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_metaURI",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "token_name",
-				"type": "string"
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
 			},
 			{
 				"internalType": "address",
-				"name": "token_address",
+				"name": "token",
 				"type": "address"
-			}
-		],
-		"name": "applyTo",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "projectID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint8",
-				"name": "st_range",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "end_range",
-				"type": "uint8"
 			},
 			{
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "tokenAddress",
-				"type": "address"
 			}
 		],
-		"name": "bid",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "projectId",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			},
 			{
 				"internalType": "address",
-				"name": "receiver",
+				"name": "",
 				"type": "address"
 			}
 		],
-		"name": "claimFund",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "deployBlockNum",
+		"name": "lockingFundsIndex",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -274,14 +302,46 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "participants",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalBids",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "winnerProjectID",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]
